@@ -118,7 +118,7 @@ function otherSettings(apply = false) {
     // =======================================
 
     // TODO
-  }
+  };
 }
 
 // export async function checkSystem() {

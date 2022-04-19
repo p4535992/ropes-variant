@@ -1,5 +1,4 @@
 {
-
   "grit-and-glory.setting.reset.name": "Reset settings to default",
   "grit-and-glory.setting.reset.label": "Reset Settings To Default",
   "grit-and-glory.setting.reset.hint": "This will reset all of the settings of back to the active game system's default.",

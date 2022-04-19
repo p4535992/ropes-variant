@@ -1,6 +1,6 @@
 const CONSTANTS = {
-  MODULE_NAME: 'grit-and-Glory',
-  PATH: `modules/grit-and-Glory/`
+  MODULE_NAME: 'ropes-variant',
+  PATH: `modules/ropes-variant/`,
 };
 
 CONSTANTS.PATH = `modules/${CONSTANTS.MODULE_NAME}/`;

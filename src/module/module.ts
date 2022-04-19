@@ -2,18 +2,11 @@ import { registerSocket, gritAndGlorySocket } from './socket';
 
 import CONSTANTS from './constants';
 import HOOKS from './hooks';
-import {
-  debug,
-  duplicateExtended,
-  i18n,
-  isStringEquals,
-  is_real_number,
-  warn,
-} from './lib/lib';
+import { debug, duplicateExtended, i18n, isStringEquals, is_real_number, warn } from './lib/lib';
 import API from './api';
 import type EmbeddedCollection from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/abstract/embedded-collection.mjs';
 import type { ActorData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/module.mjs';
-import { setApi } from '../grit-and-glory';
+import { setApi } from '../main';
 
 export const initHooks = (): void => {
   // registerSettings();
@@ -34,11 +27,6 @@ export const initHooks = (): void => {
       }
     }
   }
-
-  //@ts-ignore
-  window.ConditionalVisibility = {
-    API,
-  };
 };
 
 export const setupHooks = (): void => {

@@ -325,4 +325,3 @@ function getElevationPlaceableObject(placeableObject: any): number {
 // =============================
 // Module specific function
 // =============================
-

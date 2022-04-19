@@ -27,7 +27,8 @@ If you want to support more modules of this kind, I invite you to go and support
 
 Ever wished you had that rope beein visualized in some manner? Or maybe a spell that tethers to someone else? now you can!
 
-<img src="https://github.com/theripper93/ropes/raw/master/ropesdemo.gif" width="400">
+<!-- <img src="https://github.com/theripper93/ropes/raw/master/ropesdemo.gif" width="400"> -->
+![img](./wiki/ropesdemo.gif)
 
 ## How to use:
 
@@ -54,47 +55,6 @@ To install this module manually:
 `https://raw.githubusercontent.com/p4535992/ropes-variant/master/src/module.json`
 4.  Click 'Install' and wait for installation to complete
 5.  Don't forget to enable the module in game using the "Manage Module" button
-
-
-### warpgate
-
-This module uses the [warpgate](https://github.com/trioderegion/warpgate) library. It is a mandatory dependency and it is recommended for the best experience and compatibility with other modules.
-
-### socketlib
-
-This module uses the [socketlib](https://github.com/manuelVo/foundryvtt-socketlib) library for wrapping core methods. It is a hard dependency and it is recommended for the best experience and compatibility with other modules.
-
-## Features 
-
-# API
-
-###  async game.modules.get('ropse').invokePolymorpherManager(sourceTokenId: string, removePolymorpher = false, ordered = false, random = false, animationExternal:{ sequence:Sequence, timeToWait:number }|undefined = undefined) ⇒ <code>Promise.&lt;void&gt;</code>
-
-Invoke the polymorpher manager feature from macro
-
-**Returns**: <code>Promise.&lt;void&gt;</code> - A empty promise
-
-| Param | Type | Description | Default |
-| --- | --- | --- | --- |
-| sourceTokenIdOrName | <code>string</code> | The id or the name of the token (not the actor) | <code>undefined</code> |
-| removePolymorpher | <code>boolean</code> | This action should revert the polymorpher if the current token is polymorphed | <code>false</code> |
-| ordered | <code>boolean</code> | The 'ordered' feature is enabled for this polymorphing | <code>false</code> |
-| random | <code>boolean</code> | The 'random' feature is enabled for this polymorphing | <code>0</code> |
-| animationExternal | <code>{ sequence:Sequence, timeToWait:number }</code> | Advanced: Use your personal sequence animation and the time needed to wait before the polymorph action, checkout the [Sequencer module](https://github.com/fantasycalendar/FoundryVTT-Sequencer) for more information  | <code>undefined</code> |
-
-**Examples**:
-
-`game.modules.get('automated-polymorpher').api.invokePolymorpherManager('Zruggig Widebrain')`
-
-`game.modules.get('automated-polymorpher').api.invokePolymorpherManager('Zruggig Widebrain', true)`
-
-`game.modules.get('automated-polymorpher').api.invokePolymorpherManager('Zruggig Widebrain', false, false)`
-
-`game.modules.get('automated-polymorpher').api.invokePolymorpherManager('Zruggig Widebrain', false, false, false)`
-
-## Integration with socketLib
-
-working in progresso...
 
 # Build
 
@@ -175,40 +135,18 @@ npm run-script package
 
 ## Issues
 
-Any issues, bugs, or feature requests are always welcome to be reported directly to the [Issue Tracker](https://github.com/p4535992/foundryvtt-automated-polymorpher/issues ), or using the [Bug Reporter Module](https://foundryvtt.com/packages/bug-reporter/).
+Any issues, bugs, or feature requests are always welcome to be reported directly to the [Issue Tracker](https://github.com/p4535992/ropes-variant/issues ), or using the [Bug Reporter Module](https://foundryvtt.com/packages/bug-reporter/).
 
 ## License
 
-- **Jack Kerouac's**: [GPL-3.0 License](https://github.com/jackkerouac/animated-tokens/blob/main/LICENSE)
-
-- **JB2A**: [CC BY-NC-SA 4.0](https://github.com/Jules-Bens-Aa/JB2A_DnD5e/blob/main/License.txt)
-
-- **Sequencer**: [Mit License](https://github.com/fantasycalendar/FoundryVTT-Sequencer/blob/master/LICENSE)
-
-- **Warpgate**: [GPL-3.0 License](https://github.com/trioderegion/warpgate/blob/master/LICENSE)
-
-- **Automated Evocations**: ???
-
-- **Game Icons**: [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
+- **Ropes & Tethers**: [???](https://github.com/theripper93/ropes/blob/main/LICENSE)
 
 This package is under an [GPL-3.0 License](LICENSE) and the [Foundry Virtual Tabletop Limited License Agreement for module development](https://foundryvtt.com/article/license/).
 
 ## Credits
 
-- **Jack Kerouac's**: The Fire, Air, Lightning, Water, Energy, Magic, Heart, Crescendo, Four Elements animations assets are from Jack Kerouac's amazing https://github.com/jackkerouac/animated-spell-effects-cartoon module. (used with permission)
-
-- **JB2A**: The  Chord, Darkness, Ice, Conjuration, Storm animations assets are courtesy of JB2A (Free animated assets), i strongly reccomend checking out their patreon for many more amazing animations and variations. (used with permission) https://discord.gg/A59GAZwB9M https://www.patreon.com/JB2A
-
-- **Sequencer**: This module is used to play the animations https://github.com/fantasycalendar/FoundryVTT-Sequencer
-
-- **Warpgate**: This module is used for the spawning https://github.com/trioderegion/warpgate
-
-- **Automated Evocations**: This module is used for the inspiration and base functionality https://github.com/theripper93/automated-evocations
-
-- **Game Icons**: Some images used are from https://game-icons.net/
+- **Ropes & Tethers**: This module is based on https://github.com/theripper93/ropes
 
 ## Acknowledgements
 
 Bootstrapped with League of Extraordinary FoundryVTT Developers  [foundry-vtt-types](https://github.com/League-of-Foundry-Developers/foundry-vtt-types).
-
-Mad props to the 'League of Extraordinary FoundryVTT Developers' community which helped me figure out a lot.

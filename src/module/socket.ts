@@ -1,33 +1,31 @@
 import CONSTANTS from './constants';
 import API from './api';
 import { debug } from './lib/lib';
-import { setSocket } from '../grit-and-glory';
+import { setSocket } from '../main';
 
 export const SOCKET_HANDLERS = {
-
   CALL_HOOK: 'callHook',
-
 };
 
-export let gritAndGlorySocket;
+export let ropesSocket;
 
 export function registerSocket() {
-  debug('Registered gritAndGlorySocket');
-  if (gritAndGlorySocket) {
-    return gritAndGlorySocket;
+  debug('Registered ropesSocket');
+  if (ropesSocket) {
+    return ropesSocket;
   }
   //@ts-ignore
-  gritAndGlorySocket = socketlib.registerModule(CONSTANTS.MODULE_NAME);
+  ropesSocket = socketlib.registerModule(CONSTANTS.MODULE_NAME);
 
   /**
    * Generic socket
    */
-  gritAndGlorySocket.register(SOCKET_HANDLERS.CALL_HOOK, (hook, ...args) => callHook(hook, ...args));
+  ropesSocket.register(SOCKET_HANDLERS.CALL_HOOK, (hook, ...args) => callHook(hook, ...args));
 
   // TODO
 
-  setSocket(gritAndGlorySocket);
-  return gritAndGlorySocket;
+  setSocket(ropesSocket);
+  return ropesSocket;
 }
 
 async function callHook(inHookName, ...args) {
