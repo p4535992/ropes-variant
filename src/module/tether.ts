@@ -1,3 +1,5 @@
+import CONSTANTS from "./constants";
+
 export class Tether {
   nodes: any[];
   texture: PIXI.Texture | undefined;
@@ -7,7 +9,7 @@ export class Tether {
   maxLength: number;
   width: number;
   graphics: PIXI.Graphics;
-  hookId: string;
+  hookId:any;
   id: string;
 
   constructor(nodes, texture: any, options: any = {}, id) {
@@ -106,27 +108,31 @@ export class Tether {
     }
     return length / Tether.unitToPx();
   }
+
   get nodeIds() {
     return this.nodes.map((node) => node.element.id);
   }
+
   static Create(nodes, texture, options = {}) {
-    const explandedNodes = [];
+    const explandedNodes:any[] = [];
     for (const node of nodes) {
       explandedNodes.push(Tether.processNode(node));
     }
-    const tether = new Tether(explandedNodes, texture, options);
+    const tether = new Tether(explandedNodes, texture, options, undefined);
     Tether.addToFlags(tether);
     //Tether.addToCanvas(tether);
     return tether;
   }
-  static DestroyByEntity(entity) {
-    for (const tether of canvas.tethers) {
-      if (tether.nodes.some((node) => node.element === entity)) {
+
+  static DestroyByEntity(entity:TetherNode) {
+    for (const tether of canvas[CONSTANTS.MODULE_NAME].tethers) {
+      if (tether.nodes.some((node:TetherNode) => node.element === entity)) {
         tether.destroy();
         return;
       }
     }
   }
+
   static CreateFromFlag(flag) {
     const explandedNodes:any[] = [];
     for (const node of flag.nodes) {
@@ -149,7 +155,7 @@ export class Tether {
   static getPolygon(o, c1, w) {
     const wp = (w * Tether.unitToPx()) / 2;
     const d = Tether.getDistance(o, c1) * Tether.unitToPx();
-    const points = [
+    const points:any = [
       { x: o.x + (wp * (o.y - c1.y)) / d, y: o.y - (wp * (o.x - c1.x)) / d },
       { x: o.x - (wp * (o.y - c1.y)) / d, y: o.y + (wp * (o.x - c1.x)) / d },
       { x: c1.x - (wp * (o.y - c1.y)) / d, y: c1.y + (wp * (o.x - c1.x)) / d },
@@ -165,26 +171,32 @@ export class Tether {
     return 'center';
   }
   static addToFlags(tether) {
-    if (!game.user.isGM) return;
-    const oldFlag = canvas.scene.getFlag('ropes', 'tethers') || [];
+    if (!game.user?.isGM) {
+      return;
+    }
+    const oldFlag:TetherNode[] = <TetherNode[]>canvas.scene?.getFlag(CONSTANTS.MODULE_NAME, 'tethers') || [];
     oldFlag.push(Tether.tetherToFlag(tether));
-    canvas.scene.setFlag('ropes', 'tethers', oldFlag);
+    canvas.scene?.setFlag(CONSTANTS.MODULE_NAME, 'tethers', oldFlag);
   }
   static removeFromFlags(tetherId) {
-    if (!game.user.isGM) return;
-    const oldFlag = canvas.scene.getFlag('ropes', 'tethers') || [];
-    const newFlag = [];
+    if (!game.user?.isGM) {
+      return;
+    }
+    const oldFlag:TetherNode[] = <TetherNode[]>canvas.scene?.getFlag(CONSTANTS.MODULE_NAME, 'tethers') || [];
+    const newFlag:any[] = [];
     for (const tether of oldFlag) {
       if (tether.id !== tetherId) {
         newFlag.push(tether);
       }
     }
-    canvas.scene.setFlag('ropes', 'tethers', newFlag);
+    canvas.scene?.setFlag(CONSTANTS.MODULE_NAME, 'tethers', newFlag);
   }
   updateFlags() {
-    if (!game.user.isGM) return;
-    const oldFlag = canvas.scene.getFlag('ropes', 'tethers') || [];
-    const newFlag = [];
+    if (!game.user?.isGM) {
+      return;
+    }
+    const oldFlag:any[] = <any[]>canvas.scene?.getFlag(CONSTANTS.MODULE_NAME, 'tethers') || [];
+    const newFlag:any[] = [];
     for (const tether of oldFlag) {
       if (tether.id === this.id) {
         newFlag.push(Tether.tetherToFlag(this));
@@ -192,10 +204,10 @@ export class Tether {
         newFlag.push(tether);
       }
     }
-    canvas.scene.setFlag('ropes', 'tethers', newFlag);
+    canvas.scene?.setFlag(CONSTANTS.MODULE_NAME, 'tethers', newFlag);
   }
   static tetherToFlag(tether) {
-    const simpleNodes = [];
+    const simpleNodes:TetherNode[] = [];
     for (const node of tether.nodes) {
       simpleNodes.push({
         id: node.element.id,
@@ -216,22 +228,27 @@ export class Tether {
     };
   }
   static addToCanvas(tether) {
-    if (!canvas.tethers) {
-      canvas.tethers = [];
+    if (!canvas[CONSTANTS.MODULE_NAME].tethers) {
+      canvas[CONSTANTS.MODULE_NAME].tethers = [];
     }
-    canvas.tethers.push(tether);
+    canvas[CONSTANTS.MODULE_NAME].tethers.push(tether);
   }
   static clearAll() {
-    if (canvas.tethers) {
-      for (const tether of canvas.tethers) {
+    if (canvas[CONSTANTS.MODULE_NAME].tethers) {
+      for (const tether of canvas[CONSTANTS.MODULE_NAME].tethers) {
         tether.render(false);
       }
     }
-    canvas.tethers = [];
+    canvas[CONSTANTS.MODULE_NAME].tethers = [];
   }
 }
 
-class TetherNode {
+export class TetherNode {
+  element:any;
+  anchor:any;
+  documentName:string;
+  id:string;
+
   constructor(anchor, element, documentName, id) {
     this.element = element;
     this.anchor = anchor;
@@ -248,25 +265,29 @@ class TetherNode {
   }
 }
 
-class Rope {
-  constructor(options, texture = 'modules/ropes/textures/rope.webp') {
+export class Rope {
+  options:any;
+  nodes:any[] = [];
+  texture:string;
+
+  constructor(options, texture = `modules/${CONSTANTS.MODULE_NAME}/assets/textures/rope.webp`) {
     this.options = options;
     this.nodes = [];
     this.texture = texture;
   }
   static Start(options = { width: 5, stretchmark: true, length: 100, break: true }, texture) {
-    canvas.currentRope = new Rope(options, texture);
+    canvas[CONSTANTS.MODULE_NAME].currentRope = new Rope(options, texture);
   }
   static Add(element) {
-    canvas.currentRope.nodes.push({
-      element: element || canvas.activeLayer.controlled[0],
+    canvas[CONSTANTS.MODULE_NAME].currentRope.nodes.push({
+      element: element //|| canvas.activeLayer.controlled[0],
     });
   }
   static Create() {
-    Tether.Create(canvas.currentRope.nodes, canvas.currentRope.texture, canvas.currentRope.options);
+    Tether.Create(canvas[CONSTANTS.MODULE_NAME].currentRope.nodes, canvas[CONSTANTS.MODULE_NAME].currentRope.texture, canvas[CONSTANTS.MODULE_NAME].currentRope.options);
     Rope.Clear();
   }
   static Clear() {
-    canvas.currentRope = null;
+    canvas[CONSTANTS.MODULE_NAME].currentRope = null;
   }
 }
